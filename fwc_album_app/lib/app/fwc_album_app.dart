@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:fwc_album_app/app/core/rest/custom_dio.dart';
 import 'package:fwc_album_app/app/core/theme/theme_config.dart';
+import 'package:fwc_album_app/app/core/ui/global/global_context.dart';
+import 'package:fwc_album_app/app/core/ui/global/global_context_impl.dart';
 import 'package:fwc_album_app/app/pages/auth/login/login_route.dart';
 import 'package:fwc_album_app/app/pages/auth/register/register_route.dart';
 import 'package:fwc_album_app/app/pages/home/home_page.dart';
@@ -10,7 +12,9 @@ import 'package:fwc_album_app/app/repositories/auth/auth_repository.dart';
 import 'package:fwc_album_app/app/repositories/auth/auth_repository_impl.dart';
 
 class FwcAlbumApp extends StatelessWidget {
-  const FwcAlbumApp({super.key});
+  FwcAlbumApp({super.key});
+
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +24,15 @@ class FwcAlbumApp extends StatelessWidget {
             Bind.lazySingleton<AuthRepository>(
               (i) => AuthRepositoryImpl(dio: i()),
             ),
+            Bind.lazySingleton<GlobalContext>((i) => GlobalContextImpl(
+                  navigatorKey: navigatorKey,
+                  authRepository: i(),
+                ))
           ]),
       child: MaterialApp(
         title: 'Fifa World Cup Album',
         debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
         theme: ThemeConfig.theme,
         routes: {
           '/': (_) => SplashRoute(),
