@@ -39,12 +39,6 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> register(RegisterUserModel registerModel) async {
     try {
       await dio.unAuth().post('/api/register', data: registerModel.toMap());
