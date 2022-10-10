@@ -1,10 +1,10 @@
-import { primsa } from '../../../database/prisma';
+import { prisma } from '../../../database/prisma';
 import { UserDto } from '../dtos/UserDto';
 import { IUsersRepository } from './IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
   async registerUser(userDto: UserDto): Promise<void> {
-    await primsa.user.create({
+    await prisma.user.create({
       data: {
         id: userDto.id,
         email: userDto.email,
@@ -19,6 +19,12 @@ class UsersRepository implements IUsersRepository {
         created_at: userDto.created_at,
       },
     });
+  }
+
+  async findUserByEmail(email: string): Promise<UserDto | null> {
+    const user = await prisma.user.findFirst({ where: { email } });
+
+    return user;
   }
 }
 

@@ -2,6 +2,8 @@ import { inject, injectable } from 'tsyringe';
 import constDatas from '../../../../config/constDatas';
 import { ICryptProvider } from '../../../../shared/providers/cryptProvider/ICryptProvider';
 import { IDateProvider } from '../../../../shared/providers/dateProvider/IDateProvider';
+import { AppError } from '../../../../utils/AppError';
+import { ResponseCode } from '../../../../utils/ResponseCode';
 import { Utils } from '../../../../utils/Utils';
 import { UserDto } from '../../dtos/UserDto';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
@@ -23,6 +25,15 @@ class RegisterUserUseCase {
     email,
     password,
   }: IRegisterUserRequest): Promise<void> {
+    const userAlreadyExists = await this.usersRepository.findUserByEmail(email);
+
+    if (!userAlreadyExists) {
+      throw new AppError({
+        message: 'User email is already in use',
+        status: ResponseCode.BadRequest,
+      });
+    }
+
     const passwordHash = await this.cryptProvider.hashString(password);
 
     const user: UserDto = new UserDto({
