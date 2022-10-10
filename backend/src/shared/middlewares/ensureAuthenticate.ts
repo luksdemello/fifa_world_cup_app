@@ -21,10 +21,10 @@ export default function ensureAuthenticate(
   const secret = process.env.JSON_WEB_TOKEN_SECRET || 'senhadomeujsonwebtoken';
   try {
     const decoded = verify(token, secret);
-    const userId = decoded.sub as string;
+    const userToken = decoded.sub as string;
 
     request.user = {
-      id: userId,
+      token: userToken,
     };
 
     next();

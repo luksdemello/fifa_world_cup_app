@@ -11,7 +11,8 @@ datasource db {
 }
 
 model User {
-  id                     String @id
+  token                  String @id
+  id                     Int?   @default(autoincrement())
   name                   String
   email                  String @unique
   password               String
@@ -24,4 +25,18 @@ model User {
   updated_at             String
 
   @@map("tb_users")
+}
+
+model Country {
+  id             Int    @id @default(autoincrement())
+  country_code   String
+  country_name   String
+  index          Int
+  stickers_start Int
+  stickers_end   Int
+  flag           String
+  created_at     String
+  updated_at     String
+
+  @@map("tb_countries")
 }

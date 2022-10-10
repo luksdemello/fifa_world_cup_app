@@ -27,7 +27,7 @@ class RegisterUserUseCase {
   }: IRegisterUserRequest): Promise<void> {
     const userAlreadyExists = await this.usersRepository.findUserByEmail(email);
 
-    if (!userAlreadyExists) {
+    if (userAlreadyExists) {
       throw new AppError({
         message: 'User email is already in use',
         status: ResponseCode.BadRequest,
@@ -37,7 +37,8 @@ class RegisterUserUseCase {
     const passwordHash = await this.cryptProvider.hashString(password);
 
     const user: User = new User({
-      id: Utils.generateUid(),
+      id: 0,
+      token: Utils.generateUid(),
       email,
       name,
       password: passwordHash,

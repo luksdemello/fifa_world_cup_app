@@ -1,11 +1,13 @@
 class User {
-  id: string;
+  id: number;
 
   name: string;
 
   email: string;
 
   password: string;
+
+  token: string;
 
   total_album: number;
 
@@ -27,6 +29,7 @@ class User {
     email,
     password,
     total_album,
+    token,
     total_stickers,
     total_complete,
     total_complete_percent,
@@ -37,6 +40,7 @@ class User {
     this.id = id;
     this.name = name;
     this.email = email;
+    this.token = token;
     this.password = password;
     this.total_album = total_album;
     this.total_stickers = total_stickers;

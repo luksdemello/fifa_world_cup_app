@@ -3,20 +3,20 @@ import { User } from '../entities/User';
 import { IUsersRepository } from './IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
-  async registerUser(userDto: User): Promise<void> {
+  async registerUser(user: User): Promise<void> {
     await prisma.user.create({
       data: {
-        id: userDto.id,
-        email: userDto.email,
-        name: userDto.name,
-        password: userDto.password,
-        total_album: userDto.total_album,
-        total_complete: userDto.total_complete,
-        total_complete_percent: userDto.total_complete_percent,
-        total_duplicates: userDto.total_duplicates,
-        total_stickers: userDto.total_stickers,
-        updated_at: userDto.updated_at,
-        created_at: userDto.created_at,
+        token: user.token,
+        email: user.email,
+        name: user.name,
+        password: user.password,
+        total_album: user.total_album,
+        total_complete: user.total_complete,
+        total_complete_percent: user.total_complete_percent,
+        total_duplicates: user.total_duplicates,
+        total_stickers: user.total_stickers,
+        updated_at: user.updated_at,
+        created_at: user.created_at,
       },
     });
   }
@@ -27,8 +27,8 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async findUserById(id: string): Promise<User | null> {
-    const user = await prisma.user.findFirst({ where: { id } });
+  async findUserByToken(token: string): Promise<User | null> {
+    const user = await prisma.user.findFirst({ where: { token } });
 
     return user;
   }

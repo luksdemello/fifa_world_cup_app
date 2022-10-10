@@ -1,7 +1,7 @@
 import { User } from '../entities/User';
 
 class UserDto {
-  id: string;
+  id: number;
 
   name: string;
 
@@ -10,6 +10,8 @@ class UserDto {
   total_album: number;
 
   total_stickers: number;
+
+  token: string;
 
   total_duplicates: number;
 
@@ -25,6 +27,7 @@ class UserDto {
     id,
     name,
     email,
+    token,
     total_album,
     total_stickers,
     total_complete,
@@ -36,6 +39,7 @@ class UserDto {
     this.id = id;
     this.name = name;
     this.email = email;
+    this.token = token;
     this.total_album = total_album;
     this.total_stickers = total_stickers;
     this.total_duplicates = total_duplicates;

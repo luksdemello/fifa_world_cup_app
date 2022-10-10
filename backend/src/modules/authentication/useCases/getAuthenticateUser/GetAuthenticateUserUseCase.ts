@@ -11,8 +11,8 @@ class GetAuthenticateUserUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(id: string): Promise<UserDto> {
-    const user = await this.usersRepository.findUserById(id);
+  async execute(token: string): Promise<UserDto> {
+    const user = await this.usersRepository.findUserByToken(token);
 
     if (!user) {
       throw new AppError({

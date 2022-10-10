@@ -45,7 +45,7 @@ class LoginUserUseCase {
       process.env.JSON_WEB_TOKEN_SECRET || 'senhadomeujsonwebtoken';
 
     const token = sign({}, secret, {
-      subject: user.id,
+      subject: user.token,
       expiresIn: 86400,
     });
 
