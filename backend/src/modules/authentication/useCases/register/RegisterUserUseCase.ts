@@ -5,7 +5,7 @@ import { IDateProvider } from '../../../../shared/providers/dateProvider/IDatePr
 import { AppError } from '../../../../utils/AppError';
 import { ResponseCode } from '../../../../utils/ResponseCode';
 import { Utils } from '../../../../utils/Utils';
-import { UserDto } from '../../dtos/UserDto';
+import { User } from '../../entities/User';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { IRegisterUserRequest } from './RegisterUserRequest';
 
@@ -36,7 +36,7 @@ class RegisterUserUseCase {
 
     const passwordHash = await this.cryptProvider.hashString(password);
 
-    const user: UserDto = new UserDto({
+    const user: User = new User({
       id: Utils.generateUid(),
       email,
       name,

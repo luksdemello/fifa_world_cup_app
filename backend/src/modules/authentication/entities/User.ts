@@ -1,11 +1,11 @@
-import { User } from '../entities/User';
-
-class UserDto {
+class User {
   id: string;
 
   name: string;
 
   email: string;
+
+  password: string;
 
   total_album: number;
 
@@ -25,6 +25,7 @@ class UserDto {
     id,
     name,
     email,
+    password,
     total_album,
     total_stickers,
     total_complete,
@@ -36,6 +37,7 @@ class UserDto {
     this.id = id;
     this.name = name;
     this.email = email;
+    this.password = password;
     this.total_album = total_album;
     this.total_stickers = total_stickers;
     this.total_duplicates = total_duplicates;
@@ -46,4 +48,4 @@ class UserDto {
   }
 }
 
-export { UserDto };
+export { User };
